@@ -247,6 +247,320 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://mbrewlab.com/2017/03/16/Wi-Fi无线温度计的制作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="m">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mBrewLab {} m酿造实验室">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/16/Wi-Fi无线温度计的制作/" itemprop="url">
+                  Wi-Fi无线温度计的制作
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-16T01:33:38+08:00">
+                2017-03-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/16/Wi-Fi无线温度计的制作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/16/Wi-Fi无线温度计的制作/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>此文详细介绍了一款低成本WiFi无线温度计的制作方法，所有材料费用（不包含已有的WiFi网络设备和电脑）不超过50元。此温度计通过干电池供电。间歇工作，因而有很长的电池续航寿命，最长可达数周。使用者可直接访问原始数据，根据自己的需求进行数据记录或分析；也可利用实时数据结合数字输出模块实现各种温控逻辑。</p>
+<h2 id="材料："><a href="#材料：" class="headerlink" title="材料："></a>材料：</h2><ol>
+<li>Wemos D1 mini无线模块。<br><img src="http://upload-images.jianshu.io/upload_images/272086-de5c2004f605ebc1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来源：“http://www.cnx-software.com/wp-content/uploads/2016/02/Wemos_D1_mini.jpg”"></li>
+<li>杜邦线，公公/公母头各5根。<br><img src="http://upload-images.jianshu.io/upload_images/272086-1c939b9e6b18642f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来源：“http://gd1.alicdn.com/bao/uploaded/i1/19167022796054495/T1iSezXy4gXXXXXXXX_!!0-item_pic.jpg_400x400.jpg”"></li>
+<li>树莓派一台，也可用linux系统的电脑替代。用来搭建服务器。<br><img src="http://upload-images.jianshu.io/upload_images/272086-9b28708fbbb5dfd9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来源：“https://www.raspberrypi.org/products/raspberry-pi-3-model-b/”"></li>
+<li>TMP-36温度传感器一枚。<br><img src="http://upload-images.jianshu.io/upload_images/272086-782e4c5abe8fbdaf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来源：“https://www.adafruit.com/products/165”"></li>
+<li>Wi-Fi无线网络。</li>
+</ol>
+<h2 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h2><p>TMP-36是一款性价比很高的感温元件，供电电压2.7-5.5V，测温范围-40 - +125摄氏度，在常温区间的精度为1摄氏度，电压输出。我们利用WeMos D1 mini板子上自带的一路模拟量输入通道（A0），读取TMP-36的输出电压，通过板载程序将电压转换成温度数据后通过WiFi上传至服务器端。</p>
+<h2 id="接线："><a href="#接线：" class="headerlink" title="接线："></a>接线：</h2><p>将5V直流电源接（5V）和（G）端口给WeMos模块供电。<br>通过板载电压输出端口（3V3）及接地端口（G）给传感器供电；<br>WeMos（A0）端口接TMP-36中间针脚读取电压信号。<br><img src="http://upload-images.jianshu.io/upload_images/272086-d83f325fa0654800.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="接线示意图"></p>
+<h2 id="Arduino-IDE的准备"><a href="#Arduino-IDE的准备" class="headerlink" title="Arduino IDE的准备"></a>Arduino IDE的准备</h2><p>下载并安装Arduino IDE。<br><img src="http://upload-images.jianshu.io/upload_images/272086-4ba4c66ce577f5bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Arduino IDE界面"><br>打开程序的设置界面，添加链接“<a href="http://arduino.esp8266.com/stable/package_esp8266com_index.json”" target="_blank" rel="external">http://arduino.esp8266.com/stable/package_esp8266com_index.json”</a><br>到Additional Boards Manager URLs文本框中。以便程序抓取模块信息。<br><img src="http://upload-images.jianshu.io/upload_images/272086-fcee036f41460873.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Preference"><br>从Tools下拉菜单里打开Boards Manager, 等待管理器刷新。刷新后下拉清单即可发现esp8266板子的驱动包，点击安装。这个过程很慢，请耐心等待。<br><img src="http://upload-images.jianshu.io/upload_images/272086-988e23f201cb68e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Board Manager"><br>安装完成后在Boards选项里选择WeMos D1 mini，CPU Frequency:80MHz, Flash Size:4M(3M SPIFFS), upload speed: 115200。<br>至此，刷机前的准备工作完成。</p>
+<h2 id="WeMos编程"><a href="#WeMos编程" class="headerlink" title="WeMos编程"></a>WeMos编程</h2><p>在Arduino IDE种编辑以下程序，将里面的SSID换成你的WiFi网络名称，PWD换成你的WiFi密码，IP-ADDRESS换成服务器端的IP地址。</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Libraries</span></div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ESP8266WiFi.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ESP8266WiFiMulti.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ESP8266HTTPClient.h&gt;</span></span></div><div class="line"> </div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> USE_SERIAL Serial</span></div><div class="line">ESP8266WiFiMulti WiFiMulti;</div><div class="line"></div><div class="line"><span class="keyword">int</span> reading = <span class="number">0</span>;</div><div class="line"><span class="keyword">int</span> iterations = <span class="number">10</span>;</div><div class="line"><span class="keyword">float</span> voltage = <span class="number">0.0</span>;</div><div class="line"><span class="keyword">float</span> temperature = <span class="number">0.0</span>;</div><div class="line"> </div><div class="line"><span class="keyword">void</span> <span class="built_in">setup</span>() &#123;</div><div class="line"> </div><div class="line">  <span class="built_in">Serial</span>.<span class="built_in">begin</span>(<span class="number">115200</span>);    <span class="comment">// Start Serial </span></div><div class="line">  <span class="built_in">delay</span>(<span class="number">10</span>);</div><div class="line">  USE_SERIAL.<span class="built_in">begin</span>(<span class="number">115200</span>);</div><div class="line">  <span class="comment">// USE_SERIAL.setDebugOutput(true);</span></div><div class="line"> </div><div class="line">  USE_SERIAL.<span class="built_in">println</span>();</div><div class="line">  USE_SERIAL.<span class="built_in">println</span>();</div><div class="line">  USE_SERIAL.<span class="built_in">println</span>();</div><div class="line"> </div><div class="line">  WiFiMulti.addAP(<span class="string">"SSID"</span>, <span class="string">"PWD"</span>);</div><div class="line">  <span class="built_in">Serial</span>.<span class="built_in">println</span>();</div><div class="line">  <span class="built_in">Serial</span>.<span class="built_in">println</span>(<span class="string">"Wait for WiFi..."</span>);</div><div class="line"></div><div class="line">  <span class="built_in">while</span>(WiFiMulti.<span class="built_in">run</span>() != WL_CONNECTED)&#123;</div><div class="line">    <span class="built_in">Serial</span>.<span class="built_in">print</span>(<span class="string">"."</span>);</div><div class="line">    <span class="built_in">delay</span>(<span class="number">500</span>);</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">Serial</span>.<span class="built_in">println</span>(<span class="string">""</span>);</div><div class="line">  <span class="built_in">Serial</span>.<span class="built_in">println</span>(<span class="string">"WiFi Connected"</span>);</div><div class="line">  <span class="built_in">Serial</span>.<span class="built_in">println</span>(<span class="string">"IP: "</span>);</div><div class="line">  <span class="built_in">Serial</span>.<span class="built_in">println</span>(<span class="built_in">WiFi</span>.<span class="built_in">localIP</span>());</div><div class="line">  </div><div class="line">&#125; </div><div class="line"> </div><div class="line"><span class="keyword">void</span> <span class="built_in">loop</span>() </div><div class="line">&#123;</div><div class="line">  <span class="built_in">analogRead</span>(<span class="number">0</span>);         <span class="comment">// chuck the first reading away to clear the ADC</span></div><div class="line">  <span class="built_in">delay</span>(<span class="number">20</span>);</div><div class="line">  reading = <span class="number">0</span>;           <span class="comment">// then read ADC pin 10 times and average</span></div><div class="line">  <span class="built_in">for</span> (<span class="keyword">int</span> <span class="built_in">loop</span> = <span class="number">0</span>; <span class="built_in">loop</span> &lt; iterations; <span class="built_in">loop</span>++)</div><div class="line">  &#123;</div><div class="line">     reading += <span class="built_in">analogRead</span>(<span class="number">0</span>);</div><div class="line">     <span class="built_in">delay</span>(<span class="number">20</span>);</div><div class="line">  &#125; </div><div class="line">   </div><div class="line">  voltage = (reading / iterations / <span class="number">1023.0</span>) * <span class="number">3.3</span>;</div><div class="line">  temperature = (voltage - <span class="number">0.5</span>) * <span class="number">100</span>;</div><div class="line">  <span class="keyword">String</span> temp;</div><div class="line">  temp = <span class="keyword">String</span>(temperature);</div><div class="line">  <span class="built_in">Serial</span>.<span class="built_in">println</span>(temp);</div><div class="line">  <span class="built_in">Serial</span>.<span class="built_in">println</span>(<span class="built_in">WiFi</span>.<span class="built_in">localIP</span>());</div><div class="line"> </div><div class="line">  HTTPClient http;</div><div class="line"> </div><div class="line">  USE_SERIAL.<span class="built_in">print</span>(<span class="string">"[HTTP] begin...\n"</span>);</div><div class="line">  <span class="comment">// configure traged server and url</span></div><div class="line">  http.<span class="built_in">begin</span>(<span class="string">"http://IP-ADDRESS/html/test.php?ipsrc=Test2&amp;temperature="</span>+ temp + <span class="string">"&amp;humidity=1&amp;voltage=1"</span>); <span class="comment">//HTTP</span></div><div class="line"> </div><div class="line">  USE_SERIAL.<span class="built_in">print</span>(<span class="string">"[HTTP] GET...\n"</span>);</div><div class="line">  <span class="comment">// start connection and send HTTP header</span></div><div class="line">  <span class="keyword">int</span> httpCode = http.GET();</div><div class="line"> </div><div class="line">    <span class="comment">// httpCode will be negative on error</span></div><div class="line">    <span class="built_in">if</span>(httpCode &gt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="comment">// HTTP header has been send and Server response header has been handled</span></div><div class="line">        USE_SERIAL.printf(<span class="string">"[HTTP] GET... code: %d\n"</span>, httpCode);</div><div class="line"> </div><div class="line">        <span class="comment">// file found at server</span></div><div class="line">        <span class="built_in">if</span>(httpCode == HTTP_CODE_OK) &#123;</div><div class="line">            <span class="keyword">String</span> payload = http.getString();</div><div class="line">            USE_SERIAL.<span class="built_in">println</span>(payload);</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="built_in">else</span> &#123;</div><div class="line">        USE_SERIAL.printf(<span class="string">"[HTTP] GET... failed, error: %s\n"</span>, http.errorToString(httpCode).c_str());</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    http.<span class="built_in">end</span>();</div><div class="line">    <span class="built_in">delay</span>(<span class="number">60000</span>);   <span class="comment">// wait a minute</span></div><div class="line">     </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>WeMos D1 mini正版模块采用ESP-8266芯片，刷程序相对容易。<br>作者从某宝上买过两次板子，两次都是ESP-8266MOD芯片的假板子，这个芯片的另外一个名字叫ESP-12S，刷程序时相对繁琐，但步骤大体相同。<br><img src="http://upload-images.jianshu.io/upload_images/272086-044b7f218ac32c38.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ESP-12S"><br>刷机步骤：<br>如果WeMos板子为ESP-12S芯片，请将下图中D3，G，及D8三个针脚短接后按如下步骤操作。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/272086-8d1890b83fe638bc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WeMos D1 Mini针脚说明"></p>
+<ol>
+<li><p>将WeMos和电脑通过usb连接。在系统terminal中输入</p>
+<blockquote>
+<p>lsusb</p>
+</blockquote>
+<p>查看板子是否连结。</p>
+</li>
+<li>如果板子连接正常，通过Arduino IDE将本章开头的程序刷入板子中。</li>
+</ol>
+<p>打开Arduino IDE里的串口监测，如果反馈不包含0.0.0.0字段，即为成功。</p>
+<h2 id="服务器端的设置"><a href="#服务器端的设置" class="headerlink" title="服务器端的设置"></a>服务器端的设置</h2><p>安装轻量服务器程序lighttpd：</p>
+<blockquote>
+<p>sudo apt-get -y install lighttpd</p>
+<p>sudo apt-get -y install php5-common php5-cgi php5</p>
+<p>sudo lighty-enable-mod fastcgi-php</p>
+<p>sudo service lighttpd force-reload</p>
+</blockquote>
+<p>修改权限</p>
+<blockquote>
+<p>sudo chown www-data:www-data /var/www</p>
+<p>sudo chmod 775 /var/www </p>
+</blockquote>
+<p>树莓派请执行如下命令：</p>
+<blockquote>
+<p>sudo usermod -a -G www-data pi</p>
+</blockquote>
+<p>linux PC请执行如下命令：</p>
+<blockquote>
+<p>sudo usermod -a -G www-data 目前的用户名</p>
+</blockquote>
+<p>重启系统。</p>
+<p>将下面程序存为test.php文件，保存在 /var/www/html/目录下。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?php</span></span></div><div class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>($_GET[<span class="string">"temperature"</span>]) &amp;&amp; !<span class="keyword">empty</span>($_GET[<span class="string">"humidity"</span>]) &amp;&amp; !<span class="keyword">empty</span>($_GET[<span class="string">"voltage"</span>]) &amp;&amp; !<span class="keyword">empty</span>($_GET[<span class="string">"ipsrc"</span>]))&#123;</div><div class="line">   $csvData = <span class="keyword">array</span>($_GET[<span class="string">"ipsrc"</span>],$_GET[<span class="string">"temperature"</span>],$_GET[<span class="string">"humidity"</span>],$_GET[<span class="string">"voltage"</span>],date(<span class="string">"Ymd"</span>),date(<span class="string">"H:i:s"</span>));</div><div class="line">   $fp = fopen(<span class="string">"order.csv"</span>,<span class="string">"a"</span>); </div><div class="line">   <span class="keyword">if</span>($fp)    &#123;  </div><div class="line">       fputcsv($fp,$csvData); <span class="comment">// Write information to the file</span></div><div class="line">       fclose($fp); <span class="comment">// Close the file</span></div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
+<p>cd到相应目录下执行</p>
+<blockquote>
+<p>sudo chmod 755 test.php</p>
+<p>sudo chown www-data:www-data /var/www/html/test.php</p>
+<p>sudo chown www-data:www-data order.csv</p>
+<p>sudo chown www-data:www-data /var/www/html</p>
+</blockquote>
+<p>测试服务器是否设置成功，请通过浏览器访问如下链接：<br><a href="http://IP/test.php?ipsrc=2&amp;temperature=-22.75&amp;humidity=10&amp;voltage=11" target="_blank" rel="external">http://IP/test.php?ipsrc=2&amp;temperature=-22.75&amp;humidity=10&amp;voltage=11</a><br>（访问前请将链接中的IP改为服务器端在局域网中的IP地址。）<br>打开文件：/var/www/html/order.csv，文件中应包含如下字段</p>
+<blockquote>
+<p>2,-22.75,10,11,20170126,10:10:09</p>
+</blockquote>
+<p>至此，所有准备工作都已经完成。<br>将WeMos模块连上温度传感器并上电运转，它会每分钟运转一次，将监测到的温度数据通过WiFi上传到服务器端，储于/var/www/html/order.csv文件中。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://mbrewlab.com/2017/03/15/玩转糖化--淀粉篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="m">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mBrewLab {} m酿造实验室">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/15/玩转糖化--淀粉篇/" itemprop="url">
+                  玩转糖化--淀粉篇
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-15T16:11:15+08:00">
+                2017-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/15/玩转糖化--淀粉篇/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/15/玩转糖化--淀粉篇/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>家酿爱好者应该都知道，60-65摄氏度低温糖化产生的麦汁发酵度高，而68-72摄氏度高温糖化产生的麦汁发酵度低。<br>这背后的原因看似简单但其实很复杂。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://mbrewlab.com/2017/03/11/酵母冻存/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1087,7 +1401,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1100,7 +1414,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
