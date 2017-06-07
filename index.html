@@ -346,8 +346,16 @@
 <p>酒花利用率随温度的降低而降低，它与温度的变化关系遵从<a href="https://en.wikipedia.org/wiki/Arrhenius_equation" target="_blank" rel="external">Arrhenius equation</a>『注：阿伦尼乌斯方程，经验公式，用来描述一种化学反应速率和温度之间的关系。』多处文献指出，酒花率用率在79-85摄氏度时趋于零。可以肯定的是，在停止对<br>麦汁的加热后，麦汁降温需要一定的时间。酒花的利用率跟降温速率直接相关，降温越慢酒花的利用率越高。我们要做的是修正Tinseth的IBU计算公式，将温度对酒花率用的影响纳入计算。</p>
 <p><em>Tinseth IBU公式</em><br>Tinseth公式在大部分应用情境下的预测都非常精确，具体公式如下：<br><img src="http://upload-images.jianshu.io/upload_images/272086-191c03f7b7d1c235.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>在公式里$U(BG,t_1)$代表酒花利用率，它是煮沸比重和煮沸时间的方程。<br>$D(AA,W,V)$代表麦汁中的alpha酸浓度，单位为mg/L，它是酒花种alpha酸，酒花重量和麦汁体积的方程。<br>b(BG)我们称其为“大小因子”，它是煮沸比重（BG）的方程。<br>f($t_1$)我们称其为“时间因子”，它是时间（单位为min）的方程，我们用它来预测alpha酸的异构化程度。<br>AA表示酒花种alpha酸的百分比含量，W表示酒花重量（单位为g），V表示麦汁体积（单位为L）。$t_1$代表煮沸时间。<br>在这里，我们相信利用率$U(BG,t_1)$不仅是煮沸比重BG和时间$t_1$的方程，如前所述，它会随着温度的下降而降低，这个关系并没有体现在现有公式中。利用率是一个无单位数字，小于等于1，一般在0.3以下。利用率的定义为最终进入成品啤酒中的异构化alpha酸相对于投放入麦汁中的alpha酸的比例。在Tinseth公式中，IBU与利用率和异构alpha酸的关系是线性的，这是一种过度简化。实际情况下，氧化的alpha，beta酸和多酚等物质都会对IBU造成影响。</p>
-<p><em>利用率曲线</em><br>下图为公式（2）中利用率$U(BG,t_1)$以时间为变量的曲线图。不同颜色代表不同的煮沸密度BG，详情见图例。<br><img src="http://upload-images.jianshu.io/upload_images/272086-a82ad328ac2f00a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p><em>即时利用率</em></p>
+<p><em>利用率曲线</em><br>下图为公式（2）中利用率$U(BG,t_1)$以时间为变量的曲线图。不同颜色代表不同的煮沸密度BG，详情见图例。曲线反映了累积的alpha酸转化与利用。<br><img src="http://upload-images.jianshu.io/upload_images/272086-a82ad328ac2f00a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><em>即时利用率</em><br>在利用率曲线上求导，即得即时利用率。这个值的有用之处在于我们可以在其定义域内任意区间积分，即可得到该区间（或该时间段）内的利用率。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/272086-b56718d43bbce4e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>我们拿BG=1.060曲线举例，假设我们想知道煮沸40分钟时的利用率，只需对上图BG=1.060曲线在0-40之间积分即可，积分值对应曲线下方和坐标轴围成的面积，即下图绿色区域面积。<br><img src="http://upload-images.jianshu.io/upload_images/272086-038220b6d9e8e4e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>如果我们想知道50-60分钟之间的利用率，我们只需在40-50间积分即可：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/272086-bed21cb441de18ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><em>多余的利用率</em><br>假设我们计划煮沸酒花40分钟，但我们忘记了关火冷却，多煮了10分钟，这时我们立即冷却麦汁，此时的酒花利用率于煮沸50分钟相当：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/272086-d70dc0efea53652f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>假设我们在40分钟线准时关火冰冷确麦汁，但现实经验告诉我们，麦汁降温需要时间，在高温段酒花的利用率仍旧在增加，只是增量不会有上图蓝色区域显示的那么高。</p>
+<p><em>利用率与温度和时间的关系</em><br>（译者按：本段落中所用数据并无特殊意义，只是为了方便说明过程。）<br>假设我们有6G（加仑）麦汁，从煮沸关火时开始每个一分钟测量一次温度，以时间为横坐标标点绘图并做线性拟合：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/272086-3f4a639f97e13bdc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>得温度方程$T(t_2) = -1.344t_2 + 210.64$, 此处T为温度，单位为Fahrenheit(华氏度），$t_2$为关火后时间，单位为分钟。<br>若以摄氏度为温度单位，得方程$T(t_2) = -0.74667t_2 + 99.244$<br>下一步，我们需要一个描述利用率与温度之间关系的方程，为了方便，我们定义相对利用率$U_rel (T)$，</p>
 
           
         
