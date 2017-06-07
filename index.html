@@ -253,7 +253,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://mbrewlab.com/2017/05/31/mathtest/">
+    <link itemprop="mainEntityOfPage" href="http://mbrewlab.com/2017/06/01/针对酒花后投IBU的计算修正/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="m">
@@ -275,8 +275,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/05/31/mathtest/" itemprop="url">
-                  mathtest
+                <a class="post-title-link" href="/2017/06/01/针对酒花后投IBU的计算修正/" itemprop="url">
+                  针对酒花后投IBU的计算修正
                 </a>
               
             
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-31T22:30:26+08:00">
-                2017-05-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-01T10:05:32+08:00">
+                2017-06-01
               </time>
             
 
@@ -311,8 +311,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/05/31/mathtest/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/31/mathtest/" itemprop="commentCount"></span>
+                <a href="/2017/06/01/针对酒花后投IBU的计算修正/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/01/针对酒花后投IBU的计算修正/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -340,7 +340,12 @@
       
         
           
-            <p>$F_{\mu}$<br>$F_a + F_b = F_c$</p>
+            <h5 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h5><p>常规IBU计算方法将关火后投放酒花的IBU贡献值计为零。这与酿酒实践相矛盾。实际上，关火后投放的酒花所贡献的IBU不容忽视。本文介绍了一种针对后投酒花苦度计算的方法，此方法本质上是基于Tinseth公式的修正，修正后的算法命名为mIBU（maximum IBU），命名原因见后文。</p>
+<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><p>标准的IBU计算公式，比如Tinseth公式，將关火后投放酒花的IBU贡献值视为零。这与实践经验相左。<br>实际操作中，不同的酿造系统，不同的操作方法都为对后投酒花的IBU产生巨大的影响。通过对许多网络文献的分析，我们发现后投酒花（包括关火后和旋沉投放）的利用率在10%-30%之间，其中的变量和各种关系我们并不清楚，所以问题就是我们如何建造一个数学模型用来预测后投酒花的IBU贡献值。</p>
+<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><p><em>途径</em></p>
+<p>酒花利用率随温度的降低而降低，它与温度的变化关系遵从<a href="https://en.wikipedia.org/wiki/Arrhenius_equation" target="_blank" rel="external">Arrhenius equation</a>『注：阿伦尼乌斯方程，经验公式，用来描述一种化学反应速率和温度之间的关系。』多处文献指出，酒花率用率在79-85摄氏度时趋于零。可以肯定的是，在停止对<br>麦汁的加热后，麦汁降温需要一定的时间。酒花的利用率跟降温速率直接相关，降温越慢酒花的利用率越高。我们要做的是修正Tinseth的IBU计算公式，将温度对酒花率用的影响纳入计算。</p>
+<p><em>Tinseth IBU公式</em><br>Tinseth公式在大部分应用情境下的预测都非常精确，具体公式如下：<br><img src="http://upload-images.jianshu.io/upload_images/272086-191c03f7b7d1c235.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>在公式里$U(BG_{,}t<em>1)$代表酒花利用率，它是煮沸比重和煮沸时间的方程。<br>$D（AA</em>{,}W_{,}V)$代表麦汁中的alpha酸浓度，单位为mg/L，它是酒花种alpha酸，酒花重量和麦汁体积的方程。<br>b(BG)我们称其为“大小因子”，它是煮沸比重（BG）的方程。<br>$f(t_1)$我们称其为“时间因子”，它是时间（单位为min）的方程，我们用它来预测alpha酸的异构化程度。<br>AA表示酒花种alpha酸的百分比含量，W表示酒花重量（单位为g），V表示麦汁体积（单位为L）。$t_1$代表煮沸时间。</p>
 
           
         
