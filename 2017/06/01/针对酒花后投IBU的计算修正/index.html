@@ -96,7 +96,8 @@
 <meta property="og:description" content="摘要常规IBU计算方法将关火后投放酒花的IBU贡献值计为零。这与酿酒实践相矛盾。实际上，关火后投放的酒花所贡献的IBU不容忽视。本文介绍了一种针对后投酒花苦度计算的方法，此方法本质上是基于Tinseth公式的修正，修正后的算法命名为mIBU（maximum IBU），命名原因见后文。
 问题标准的IBU计算公式，比如Tinseth公式，將关火后投放酒花的IBU贡献值视为零。这与实践经验相左。实际操作">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/272086-191c03f7b7d1c235.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-06-07T12:27:15.576Z">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/272086-a82ad328ac2f00a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-06-07T13:39:28.928Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="针对酒花后投IBU的计算修正">
 <meta name="twitter:description" content="摘要常规IBU计算方法将关火后投放酒花的IBU贡献值计为零。这与酿酒实践相矛盾。实际上，关火后投放的酒花所贡献的IBU不容忽视。本文介绍了一种针对后投酒花苦度计算的方法，此方法本质上是基于Tinseth公式的修正，修正后的算法命名为mIBU（maximum IBU），命名原因见后文。
@@ -347,7 +348,9 @@
 <h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><p><em>途径</em></p>
 <p>酒花利用率随温度的降低而降低，它与温度的变化关系遵从<a href="https://en.wikipedia.org/wiki/Arrhenius_equation" target="_blank" rel="external">Arrhenius equation</a>『注：阿伦尼乌斯方程，经验公式，用来描述一种化学反应速率和温度之间的关系。』多处文献指出，酒花率用率在79-85摄氏度时趋于零。可以肯定的是，在停止对<br>麦汁的加热后，麦汁降温需要一定的时间。酒花的利用率跟降温速率直接相关，降温越慢酒花的利用率越高。我们要做的是修正Tinseth的IBU计算公式，将温度对酒花率用的影响纳入计算。</p>
 <p><em>Tinseth IBU公式</em><br>Tinseth公式在大部分应用情境下的预测都非常精确，具体公式如下：<br><img src="http://upload-images.jianshu.io/upload_images/272086-191c03f7b7d1c235.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<p>在公式里U$(BG,t_1)$代表酒花利用率，它是煮沸比重和煮沸时间的方程。<br>$D(AA,W,V)$代表麦汁中的alpha酸浓度，单位为mg/L，它是酒花种alpha酸，酒花重量和麦汁体积的方程。<br>b(BG)我们称其为“大小因子”，它是煮沸比重（BG）的方程。<br>f($t_1$)我们称其为“时间因子”，它是时间（单位为min）的方程，我们用它来预测alpha酸的异构化程度。<br>AA表示酒花种alpha酸的百分比含量，W表示酒花重量（单位为g），V表示麦汁体积（单位为L）。$t_1$代表煮沸时间。</p>
+<p>在公式里$U(BG,t_1)$代表酒花利用率，它是煮沸比重和煮沸时间的方程。<br>$D(AA,W,V)$代表麦汁中的alpha酸浓度，单位为mg/L，它是酒花种alpha酸，酒花重量和麦汁体积的方程。<br>b(BG)我们称其为“大小因子”，它是煮沸比重（BG）的方程。<br>f($t_1$)我们称其为“时间因子”，它是时间（单位为min）的方程，我们用它来预测alpha酸的异构化程度。<br>AA表示酒花种alpha酸的百分比含量，W表示酒花重量（单位为g），V表示麦汁体积（单位为L）。$t_1$代表煮沸时间。<br>在这里，我们相信利用率$U(BG,t_1)$不仅是煮沸比重BG和时间$t_1$的方程，如前所述，它会随着温度的下降而降低，这个关系并没有体现在现有公式中。利用率是一个无单位数字，小于等于1，一般在0.3以下。利用率的定义为最终进入成品啤酒中的异构化alpha酸相对于投放入麦汁中的alpha酸的比例。在Tinseth公式中，IBU与利用率和异构alpha酸的关系是线性的，这是一种过度简化。实际情况下，氧化的alpha，beta酸和多酚等物质都会对IBU造成影响。</p>
+<p><em>利用率曲线</em><br>下图为公式（2）中利用率$U(BG,t_1)$以时间为变量的曲线图。不同颜色代表不同的煮沸密度BG，详情见图例。<br><img src="http://upload-images.jianshu.io/upload_images/272086-a82ad328ac2f00a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><em>即时利用率</em></p>
 
       
     </div>
